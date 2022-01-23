@@ -8,10 +8,10 @@ export async function getWebid(webid: string): Promise<IWebId> {
     oidcIssuer: new Set(
       loadRdfString(await fetchTtl(webid))
         .getQuads(
-          null,
+          DataFactory.namedNode(webid),
           DataFactory.namedNode("http://www.w3.org/ns/solid/terms#oidcIssuer"),
           null,
-          null
+          DataFactory.defaultGraph()
         )
         .map((x) => x.object.value)
     ),
